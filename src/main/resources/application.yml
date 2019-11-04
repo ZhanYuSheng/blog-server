@@ -1,0 +1,10 @@
+#server配置
+server:
+  port: 9001
+#数据源
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    data-username: root
+    data-password: 654321
+    url: jdbc:mysql://47.107.183.233:3306/blog?useAffectedRows=true&useSSL=false
