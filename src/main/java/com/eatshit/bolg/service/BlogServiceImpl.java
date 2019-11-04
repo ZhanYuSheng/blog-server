@@ -16,6 +16,7 @@ public class BlogServiceImpl implements IBlogService {
     @Autowired
     private BlogMapper blogMapper;
 
+    @Override
     public JsonResponse<BlogTypeConfig> demo() {
         BlogTypeConfig blogTypeConfig = blogMapper.demo();
         return new JsonResponse<>(blogTypeConfig);
