@@ -28,7 +28,7 @@ public class BlogController {
      * @return
      */
     @RequestMapping("/demo")
-    public JsonResponse<BlogTypeConfig> Demo(){
+    public JsonResponse<BlogTypeConfig> demo(){
         return blogService.demo();
     }
 
