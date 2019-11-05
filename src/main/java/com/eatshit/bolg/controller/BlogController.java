@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @RestController 该注解声明该类为Controller层，并且返回实体。
  * @RequestMapping 该注解声明地址 如访问Demo方法 /blog/demo
  *
- * 注：该层用户发布接口，不处理业务和数据。
+ * 注：该层用于发布接口，不处理业务和数据。
  *      返回实体使用common.JsonResponse
  */
 @RestController
