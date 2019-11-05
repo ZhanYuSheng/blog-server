@@ -16,5 +16,6 @@ public class ServiceException extends RuntimeException implements Serializable {
         this.code = code;
     }
 
+    //unknown error
     public static final ServiceException INTERNAL_ERROR = new ServiceException(10000);
 }

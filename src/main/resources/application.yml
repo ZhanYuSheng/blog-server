@@ -10,3 +10,8 @@ spring:
     username: root
   messages:
     basename: error
+  #Redis
+  redis:
+    host: 47.107.183.233
+    port: 6379
+    password: 123456
