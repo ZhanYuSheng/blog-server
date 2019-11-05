@@ -20,7 +20,7 @@ public class BlogServiceImpl implements IBlogService {
     @Override
     public JsonResponse<BlogTypeConfig> demo() {
         BlogTypeConfig blogTypeConfig = blogMapper.demo();
-        throw ServiceException.INTERNAL_ERROR;
-//        return new JsonResponse<>(blogTypeConfig);
+//        throw ServiceException.INTERNAL_ERROR;
+        return new JsonResponse<>(blogTypeConfig);
     }
 }
