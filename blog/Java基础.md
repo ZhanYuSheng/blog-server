@@ -5,9 +5,9 @@
 
 >Java的内存管理机制请百度:)
 
->由于基本属于类型不属于对象，所以当你想把int类型转变为String类型时，无法使用toString方法，只能将变量定义为Integer类型。
+>由于基本数据类型不属于对象，所以当你想把int类型转变为String类型时，无法使用toString方法，只能将变量定义为Integer类型。
 
->Java自动拆装箱机制 基本类型与引用类型可以自动转换，如以下代码。
+>Java自动拆装箱机制 基本类型与引用类型可以自动转换，如以下代码中，test方法入参为int类型，但在使用中传入Integer类型也没有问题。
 
 ~~~Java
 public class Demo {
