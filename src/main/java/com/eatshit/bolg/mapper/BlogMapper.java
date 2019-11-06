@@ -4,12 +4,6 @@ import com.eatshit.bolg.entity.BlogTypeConfig;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
-/**
- * Mapper层
- * @Mapper 该注解声明该接口为Mapper层
- *
- * 注：该类只用于和用户与数据库交互
- */
 @Mapper
 public interface BlogMapper {
 
