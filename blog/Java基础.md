@@ -1,4 +1,6 @@
 # Java基础
+[Java8 JDK文档](http://www.matools.com/api/java8)
+
 >Java为了提高效率引入了基本数据类型，如 int char byte double float long
 
 >Java的内存管理机制请百度:)
