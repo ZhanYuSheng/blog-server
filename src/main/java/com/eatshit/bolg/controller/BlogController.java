@@ -5,6 +5,7 @@ import com.eatshit.bolg.entity.BlogTypeConfig;
 import com.eatshit.bolg.service.BlogServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -21,5 +22,10 @@ public class BlogController {
     @RequestMapping("/demo")
     public JsonResponse<BlogTypeConfig> demo(){
         return blogService.demo();
+    }
+
+    @RequestMapping("/mail")
+    public JsonResponse<Void> sendMail(@RequestParam String address, @RequestParam String message){
+        return blogService.sendMail(address, message);
     }
 }

@@ -5,4 +5,6 @@ import com.eatshit.bolg.entity.BlogTypeConfig;
 
 public interface IBlogService {
     JsonResponse<BlogTypeConfig> demo();
+
+    JsonResponse<Void> sendMail(String address, String message);
 }

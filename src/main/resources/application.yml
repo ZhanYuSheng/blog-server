@@ -10,8 +10,18 @@ spring:
     username: root
   messages:
     basename: error
+    # mail
   #Redis
   redis:
     host: 47.107.183.233
     port: 6379
     password: 123456
+  #mail
+  mail:
+    host: smtp.qq.com
+    username: 1143109382@qq.com
+    password: qvsyhvkampifjhif
+    properties:
+      mail:
+        stmp:
+          auth: true
