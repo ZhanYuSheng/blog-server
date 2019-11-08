@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 @SpringBootApplication(exclude = { ErrorMvcAutoConfiguration.class })
 public class EatshitBlogServerApplication {
@@ -16,5 +17,11 @@ public class EatshitBlogServerApplication {
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+
+    @Bean
+    public ServerEndpointExporter serverEndpointExporter()
+    {
+        return new ServerEndpointExporter();
     }
 }

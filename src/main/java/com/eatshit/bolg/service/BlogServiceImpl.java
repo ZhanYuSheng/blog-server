@@ -4,7 +4,7 @@ import com.eatshit.bolg.common.JsonResponse;
 import com.eatshit.bolg.entity.BlogTypeConfig;
 import com.eatshit.bolg.exception.ServiceException;
 import com.eatshit.bolg.mapper.BlogMapper;
-import com.eatshit.bolg.util.EmailUtil;
+import com.eatshit.bolg.component.EmailComponent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -18,7 +18,7 @@ public class BlogServiceImpl implements IBlogService {
     @Autowired
     private StringRedisTemplate redis;
     @Autowired
-    private EmailUtil emailUtil;
+    private EmailComponent emailComponent;
 
     @Override
     public JsonResponse<BlogTypeConfig> demo() {
@@ -41,7 +41,7 @@ public class BlogServiceImpl implements IBlogService {
 
     @Override
     public JsonResponse<Void> sendMail(String address, String message) {
-        emailUtil.sendAlertMessage(address, message);
+        emailComponent.sendAlertMessage(address, message);
         return new JsonResponse<>();
     }
 }
