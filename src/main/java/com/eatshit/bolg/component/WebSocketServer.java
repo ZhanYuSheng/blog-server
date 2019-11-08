@@ -20,6 +20,7 @@ public class WebSocketServer {
     private static int count = 0;
     // 会话连接，websocket连入时会创建一个WebSocketServer实例
     private Session session;
+
     // 连接建立
     @OnOpen
     public void onOpen(Session session) {
@@ -33,13 +34,10 @@ public class WebSocketServer {
     @OnMessage
     public void onMessage(String message, Session session) {
         log.info("收到客户端{}消息：{}", session.getId(), message);
-        try
-        {
+        try {
             this.sendMessage("收到消息：" + message);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
+        } catch (Exception e) {
+            log.error(e.toString());
         }
     }
 
