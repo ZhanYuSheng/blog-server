@@ -28,4 +28,6 @@ public class BlogController {
     public JsonResponse<Void> sendMail(@RequestParam String address, @RequestParam String message){
         return blogService.sendMail(address, message);
     }
+
+
 }
