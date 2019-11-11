@@ -17,7 +17,7 @@ public class SmsController {
     /**
      * 发送短信验证码
      *
-     * @param phone
+     * @param phone 手机号
      * @return
      */
     @RequestMapping("/sendVerifyCode")
