@@ -1,6 +1,7 @@
 package com.eatshit.bolg.component;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
@@ -11,9 +12,12 @@ public class EmailComponent {
     @Autowired
     private JavaMailSender mailSender;
 
+    @Value("${mail.address}")
+    private String mailAddress;
+
     public void sendAlertMessage(String address, String message){
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom("1143109382@qq.com");
+        mailMessage.setFrom(mailAddress);
         mailMessage.setTo(address);
         mailMessage.setSubject(message);
         mailMessage.setText(message);

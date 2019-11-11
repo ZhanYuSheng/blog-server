@@ -69,16 +69,14 @@ public class WebSocketServer {
             throws IOException {
         log.info("推送消息到窗口" + sid + "，推送内容:" + message);
         WebSocketServer.webSocketMap.forEach((k, v) -> {
-            try
-            {
+            try {
                 // 这里可以设定只推送给这个sid的，为null则全部推送
                 if (sid == null) {
                     v.sendMessage(message);
                 } else if (k.equals(sid)) {
                     v.sendMessage(message);
                 }
-            }
-            catch (Exception e){
+            } catch (Exception e){
                 e.printStackTrace();
             }
         });
@@ -90,8 +88,7 @@ public class WebSocketServer {
         WebSocketServer.webSocketMap.forEach((k, v) -> {
             try {
                 v.sendMessage(message);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
@@ -101,6 +98,7 @@ public class WebSocketServer {
     public static int getCount() {
         return count;
     }
+
     // 操作count，使用synchronized确保线程安全
     public static synchronized void addCount() {
         WebSocketServer.count++;
