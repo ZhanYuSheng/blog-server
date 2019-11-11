@@ -18,7 +18,8 @@ public class UserController {
 
     @RequestMapping(value = "/phoneRegister")
     public JsonResponse<Void> phoneRegister(
-            @RequestParam String phone, @RequestParam String password, @RequestParam String verifyCode){
-        return userService.phoneRegister(phone, password, verifyCode);
+            @RequestParam String phone, @RequestParam String password, @RequestParam(value = "verify_code") String verifyCode,
+            @RequestParam(value = "invitor_id", required = false, defaultValue = "0") int invitorId){
+        return userService.phoneRegister(phone, password, verifyCode, invitorId);
     }
 }
