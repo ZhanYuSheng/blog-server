@@ -67,7 +67,7 @@ public class UserServiceImpl implements IUserService {
         Map<String, Object> tokenMap = new HashMap<>();
         String tokenValue = phone + "|" + password + "|" + System.currentTimeMillis();
         String tokenKey = DigestUtils.md5DigestAsHex(tokenValue.getBytes());
-        redis.opsForValue().set(tokenKey, tokenValue);
+        redis.opsForValue().set(tokenKey, tokenValue, 7, TimeUnit.DAYS);
         tokenMap.put("token", tokenKey);
         return new JsonResponse(tokenMap);
     }
