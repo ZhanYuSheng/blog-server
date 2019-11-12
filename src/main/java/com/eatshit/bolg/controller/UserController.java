@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -31,7 +33,15 @@ public class UserController {
         return userService.phoneRegister(phone, password, verifyCode, invitorId, username);
     }
 
-/*    public JsonResponse<Void> emailRegister(){
-
-    }*/
+    /**
+     * 手机号登录
+     *
+     * @param phone
+     * @param password
+     * @return
+     */
+    @RequestMapping(value = "/phoneLogin")
+    public JsonResponse<HashMap<String, Object>> phoneLogin(@RequestParam String phone, @RequestParam String password){
+        return userService.phoneLogin(phone, password);
+    }
 }

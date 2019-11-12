@@ -11,6 +11,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -24,9 +26,9 @@ public class UserServiceImpl implements IUserService {
 
     public JsonResponse<Void> phoneRegister(String phone, String password, String verifyCode, int invitorId, String username) {
         //接口操作频率限制
-        String hasCell = redis.opsForValue().get(phone);
+        String hasCell = redis.opsForValue().get("register:" + phone);
         if (hasCell == null)
-            redis.opsForValue().set(phone, "1", 10, TimeUnit.SECONDS);
+            redis.opsForValue().set("register:" + phone, "1", 10, TimeUnit.SECONDS);
         else
             throw ServiceException.OPERATION_FREQUENTLY;
         //检测验证码是否正确
@@ -50,5 +52,23 @@ public class UserServiceImpl implements IUserService {
         //写入用户表
         userMapper.insert(user);
         return new JsonResponse<>();
+    }
+
+    @Override
+    public JsonResponse<HashMap<String, Object>> phoneLogin(String phone, String password) {
+        //获取用户信息
+        User user = userMapper.selectUser(phone);
+        if (user == null)
+            throw ServiceException.USERNAME_OR_PASSWORD_ERROR;
+        String passwordSalt = DigestUtils.md5DigestAsHex((password + user.getSalt()).getBytes());
+        if (!user.getPassword().equalsIgnoreCase(passwordSalt))
+            throw ServiceException.USERNAME_OR_PASSWORD_ERROR;
+        //登录验证完成,生成token
+        Map<String, Object> tokenMap = new HashMap<>();
+        String tokenValue = phone + "|" + password + "|" + System.currentTimeMillis();
+        String tokenKey = DigestUtils.md5DigestAsHex(tokenValue.getBytes());
+        redis.opsForValue().set(tokenKey, tokenValue);
+        tokenMap.put("token", tokenKey);
+        return new JsonResponse(tokenMap);
     }
 }

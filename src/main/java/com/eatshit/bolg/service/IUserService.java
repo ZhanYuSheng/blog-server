@@ -7,4 +7,6 @@ import java.util.HashMap;
 public interface IUserService {
 
     JsonResponse<Void> phoneRegister(String phone, String password, String verifyCode, int invitorId, String username);
+
+    JsonResponse<HashMap<String, Object>> phoneLogin(String phone, String password);
 }

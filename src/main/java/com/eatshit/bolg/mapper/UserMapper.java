@@ -13,4 +13,7 @@ public interface UserMapper {
 
     @Insert("INSERT INTO t_user VALUES(null, #{email}, #{phone}, #{password}, #{salt}, #{invitorId}, #{registerTime}, #{remark})")
     void insert(User user);
+
+    @Select("SELECT * FROM t_user WHERE phone = #{phone}")
+    User selectUser(String phone);
 }
