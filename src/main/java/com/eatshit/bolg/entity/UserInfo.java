@@ -10,6 +10,8 @@ public class UserInfo {
     private String email;
     //手机号
     private String phone;
+    //用户昵称
+    private String username;
     //邀请人ID
     private Integer invitorId;
     //注册时间

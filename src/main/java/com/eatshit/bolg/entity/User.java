@@ -14,6 +14,8 @@ public class User {
     private String email;
     //手机号
     private String phone;
+    //用户昵称
+    private String username;
     //密码
     private String password;
     //加盐

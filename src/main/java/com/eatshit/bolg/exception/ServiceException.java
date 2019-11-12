@@ -18,6 +18,10 @@ public class ServiceException extends RuntimeException implements Serializable {
 
     //unknown error
     public static final ServiceException INTERNAL_ERROR = new ServiceException(10000);
+    //验证码错误
     public static final ServiceException VERIFY_CODE_ERROR = new ServiceException(10001);
+    //用户已存在
     public static final ServiceException USER_EXIST = new ServiceException(10002);
+    //操作频繁
+    public static final ServiceException OPERATION_FREQUENTLY = new ServiceException(10003);
 }
