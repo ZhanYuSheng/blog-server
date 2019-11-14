@@ -1,12 +1,18 @@
 package com.eatshit.bolg.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 该类禁止展示给用户,推荐使用UserInfo
  *
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     //用户ID
     private Integer id;

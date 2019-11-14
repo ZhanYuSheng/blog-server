@@ -36,19 +36,17 @@ public class UserServiceImpl implements IUserService {
             throw ServiceException.VERIFY_CODE_ERROR;
         //检测手机号是否被注册
         if (userMapper.phoneExist(phone))
-            throw ServiceException.USER_EXIST;
+            throw ServiceException.PHONE_EXIST;
+        //检测用户名是否存在
+        if (userMapper.userNameExist(username))
+            throw ServiceException.USERNAME_EXIST;
         //生成盐
         String salt = StringUtil.saltGenerate();
         //密码加盐
         String passwordSalt = DigestUtils.md5DigestAsHex((password + salt).getBytes());
 
-        User user = new User();
-        user.setPhone(phone);
-        user.setPassword(passwordSalt);
-        user.setSalt(salt);
-        user.setInvitorId(invitorId);
-        user.setRegisterTime(System.currentTimeMillis());
-        user.setUsername(username);
+        User user = new User().builder().phone(phone).password(passwordSalt).salt(salt).
+                invitorId(invitorId).registerTime(System.currentTimeMillis()).username(username).build();
         //写入用户表
         userMapper.insert(user);
         return new JsonResponse<>();
