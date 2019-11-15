@@ -15,8 +15,17 @@ public interface UserMapper {
     void insert(User user);
 
     @Select("SELECT * FROM t_user WHERE phone = #{phone}")
-    User selectUser(String phone);
+    User selectUserByPhone(String phone);
 
     @Select("SELECT 1=(SELECT COUNT(*) FROM t_user WHERE username = #{username})")
     boolean userNameExist(String username);
+
+    @Select("SELECT 1=(SELECT COUNT(*) FROM t_user WHERE email = #{email}")
+    boolean emailExist(String email);
+
+    @Select("SELECT * FROM t_user WHERE email = #{email}")
+    User selectUserByEMAIL(String email);
+
+    @Select("SELECT * FROM t_user WHERE phone = #{username} OR email = #{username} OR username = #{username}")
+    User selectUser(String username);
 }

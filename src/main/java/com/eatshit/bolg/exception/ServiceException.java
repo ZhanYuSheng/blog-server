@@ -28,4 +28,12 @@ public class ServiceException extends RuntimeException implements Serializable {
     public static final ServiceException USERNAME_OR_PASSWORD_ERROR = new ServiceException(10004);
     //手机号已存在
     public static final ServiceException PHONE_EXIST = new ServiceException(10005);
+    //邮箱已存在
+    public static final ServiceException EMAIL_EXIST = new ServiceException(10006);
+    //邮箱错误
+    public static final ServiceException EMAIL_ERROR = new ServiceException(10007);
+    //用户名错误
+    public static final ServiceException USERNAME_ERROR = new ServiceException(10008);
+    //用户不存在
+    public static final ServiceException USER_NOT_EXIST = new ServiceException(10009);
 }
