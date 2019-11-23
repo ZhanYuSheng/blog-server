@@ -1,6 +1,6 @@
 package com.eatshit.bolg.mapper;
 
-import com.eatshit.bolg.entity.SMS;
+import com.eatshit.bolg.entity.Sms;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -13,5 +13,5 @@ public interface SmsMapper {
 
     @Insert("INSERT INTO t_sms (phone, type, message, state, create_time, update_time, remark) VALUES " +
             "(#{phone}, #{type}, #{message}, #{state}, #{createTime}, #{updateTime}, #{remark})")
-    void insert(SMS sms);
+    void insert(Sms sms);
 }

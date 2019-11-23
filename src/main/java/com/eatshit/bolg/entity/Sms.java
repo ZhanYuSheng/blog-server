@@ -3,7 +3,7 @@ package com.eatshit.bolg.entity;
 import lombok.Data;
 
 @Data
-public class SMS {
+public class Sms {
     //短信ID
     private int id;
     //手机号码

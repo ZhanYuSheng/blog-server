@@ -4,6 +4,7 @@ import com.eatshit.bolg.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface UserMapper {
@@ -28,4 +29,7 @@ public interface UserMapper {
 
     @Select("SELECT * FROM t_user WHERE phone = #{username} OR email = #{username} OR username = #{username}")
     User selectUser(String username);
+
+    @Update("UPDATE t_user SET password = #{password} where id = #{id}")
+    void updatePassword(User user);
 }

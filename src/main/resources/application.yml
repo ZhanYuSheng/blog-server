@@ -5,18 +5,18 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://47.107.183.233:3306/blog?useAffectedRows=true&useSSL=false
+    url: jdbc:mysql://47.107.183.233:3306/blog?useUnicode=true&amp&characterEncoding=utf-8
     password: 654321
     username: root
   messages:
     basename: error
-    # mail
+    # address
   #Redis
   redis:
     host: 47.107.183.233
     port: 6379
     password: 123456
-  #mail
+  #address
   mail:
     host: smtp.qq.com
     username: 1143109382@qq.com
@@ -26,5 +26,9 @@ spring:
         stmp:
           auth: true
 
+#邮箱注册验证码模板
+mail.verify.code.template: 您的验证码为【%s】
 
 mail.address: 1143109382@qq.com
+aliyun.AccessKey.id: LTAI4FxhgFHyzSSeU3tP9o9q
+aliyun.AccessKey.Secret: Rn4nLhtz1se3LdtURifVIMHMM9yTAe
