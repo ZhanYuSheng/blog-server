@@ -15,11 +15,12 @@ public class MailComponent {
     @Value("${mail.address}")
     private String mailAddress;
 
-    public void sendAlertMessage(String address, String message){
+
+    public void sendMessage(String address,String subject, String message){
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(mailAddress);
         mailMessage.setTo(address);
-        mailMessage.setSubject(message);
+        mailMessage.setSubject(subject);
         mailMessage.setText(message);
 
         mailSender.send(mailMessage);

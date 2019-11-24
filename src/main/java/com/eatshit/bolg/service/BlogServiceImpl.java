@@ -38,10 +38,4 @@ public class BlogServiceImpl implements IBlogService {
 
         return new JsonResponse<>(blogTypeConfig);
     }
-
-    @Override
-    public JsonResponse<Void> sendMail(String address, String message) {
-        emailComponent.sendAlertMessage(address, message);
-        return new JsonResponse<>();
-    }
 }

@@ -32,7 +32,7 @@ public class MailServiceImpl implements IMailService {
         Long createTime = System.currentTimeMillis();
         Long updateTime = createTime;
         String message = String.format(mailTemplate, verifyCode);
-        Mail mail = new Mail(address, Constant.REGISTER_BY_MAIL, message,
+        Mail mail = new Mail(address, Constant.REGISTER_BY_MAIL, Constant.EMAIL_REGIST_SUBJECT,message,
                 Constant.MAIL_NOT_SEND, createTime, updateTime, "");
         mailMapper.insert(mail);
         return new JsonResponse();

@@ -12,6 +12,8 @@ public class Mail {
     private String address;
     //邮件类型 0:邮箱注册
     private int type;
+    //邮件标题
+    private String subject;
     //邮件内容
     private String message;
     //邮件状态 0:未发送，1:已发送，2:发送失败
@@ -23,9 +25,10 @@ public class Mail {
     //备注
     private String remark;
 
-    public Mail(String address, int type, String message, int state, long createTime, long updateTime, String remark) {
+    public Mail(String address, int type, String subject, String message, int state, long createTime, long updateTime, String remark) {
         this.address = address;
         this.type = type;
+        this.subject = subject;
         this.message = message;
         this.state = state;
         this.createTime = createTime;

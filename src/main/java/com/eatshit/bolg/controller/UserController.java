@@ -49,32 +49,32 @@ public class UserController {
     /**
      * 邮箱注册
      *
-     * @param mail 邮箱账号
+     * @param address 邮箱账号
      * @param password 密码
      * @param verifyCode 邮箱验证码(保留，非必填)
      * @param invitorId 邀请码(非必填)
-     * @param username 用户名
+     * @param userName 用户名
      * @return
      */
     @RequestMapping("/mailRegister")
     public JsonResponse<Void> mailRegister(
-            @RequestParam String mail, @RequestParam String password,
+            @RequestParam String address, @RequestParam String password,
             @RequestParam(value = "verify_code") String verifyCode,
             @RequestParam(value = "invitor_id", required = false, defaultValue = "0") int invitorId,
-            @RequestParam String username){
-        return userService.mailRegister(mail, password, verifyCode, invitorId, username);
+            @RequestParam(value = "user_name") String userName){
+        return userService.mailRegister(address, password, verifyCode, invitorId, userName);
     }
 
     /**
      * 邮箱登录
      *
-     * @param email 邮箱
+     * @param mail 邮箱
      * @param password 密码
      * @return
      */
-    @RequestMapping("/emailLogin")
-    public JsonResponse<HashMap<String, Object>> emailLogin(@RequestParam String email, @RequestParam String password){
-        return userService.emailLogin(email, password);
+    @RequestMapping("/mailLogin")
+    public JsonResponse<HashMap<String, Object>> mailLogin(@RequestParam String mail, @RequestParam String password){
+        return userService.mailLogin(mail, password);
     }
 
     /**

@@ -17,7 +17,7 @@ public class User {
     //用户ID
     private Integer id;
     //邮箱
-    private String email;
+    private String mail;
     //手机号
     private String phone;
     //用户昵称
@@ -32,4 +32,33 @@ public class User {
     private Long registerTime;
     //备注
     private String remark;
+
+    public User(String mail, String phone, String username, String password, String salt, Integer invitorId, Long registerTime, String remark) {
+        this.mail = mail;
+        this.phone = phone;
+        this.username = username;
+        this.password = password;
+        this.salt = salt;
+        this.invitorId = invitorId;
+        this.registerTime = registerTime;
+        this.remark = remark;
+    }
+
+    public User(String mail, String username, String password, String salt, Integer invitorId, Long registerTime, String remark) {
+        this.mail = mail;
+        this.username = username;
+        this.password = password;
+        this.salt = salt;
+        this.invitorId = invitorId;
+        this.registerTime = registerTime;
+        this.remark = remark;
+    }
+
+    public User(String mail, String username, String password, String salt, Long registerTime) {
+        this.mail = mail;
+        this.username = username;
+        this.password = password;
+        this.salt = salt;
+        this.registerTime = registerTime;
+    }
 }

@@ -3,6 +3,7 @@ package com.eatshit.bolg.service;
 import com.eatshit.bolg.common.JsonResponse;
 import com.eatshit.bolg.entity.User;
 import com.eatshit.bolg.exception.ServiceException;
+import com.eatshit.bolg.mapper.MailMapper;
 import com.eatshit.bolg.mapper.SmsMapper;
 import com.eatshit.bolg.mapper.UserMapper;
 import com.eatshit.bolg.util.StringUtil;
@@ -24,6 +25,8 @@ public class UserServiceImpl implements IUserService {
     private StringRedisTemplate redis;
     @Autowired
     private SmsMapper smsMapper;
+    @Autowired
+    private MailMapper mailMapper;
 
     @Override
     public JsonResponse<Void> phoneRegister(
@@ -78,16 +81,19 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public JsonResponse<Void> mailRegister(String mail, String password, String verifyCode, int invitorId,
-                                           String userName) {
+    public JsonResponse<Void> mailRegister(String mail, String password, String verifyCode, int invitorId, String userName) {
         //检测验证码是否正确
-        if(!"6666".equalsIgnoreCase(verifyCode))
+        String verifyMessage = mailMapper.selectVerifyCode(mail);
+        Integer start = verifyMessage.indexOf("【")+1;
+        Integer end = verifyMessage.indexOf("】");
+        String tableCode = verifyMessage.substring(start, end);
+        if(!tableCode.equalsIgnoreCase(verifyCode))
             throw ServiceException.VERIFY_CODE_ERROR;
         //检查邮箱格式
         if (!(mail.contains("@") && mail.contains(".")))
             throw ServiceException.EMAIL_ERROR;
         //检测邮箱是否被注册
-        if (userMapper.emailExist(mail))
+        if (userMapper.mailExist(mail))
             throw ServiceException.EMAIL_EXIST;
         //检测用户名是否存在
         checkUserName(userName);
@@ -95,18 +101,17 @@ public class UserServiceImpl implements IUserService {
         String salt = StringUtil.saltGenerate();
         //密码加盐
         String passwordSalt = DigestUtils.md5DigestAsHex((password + salt).getBytes());
-
-        User user = new User().builder().email(mail).password(passwordSalt).salt(salt).
-                invitorId(invitorId).registerTime(System.currentTimeMillis()).username(userName).build();
+        Long createTime = System.currentTimeMillis();
+        User user = new User(mail, userName, passwordSalt, salt, createTime);
         //写入用户表
         userMapper.insert(user);
         return new JsonResponse<>();
     }
 
     @Override
-    public JsonResponse<HashMap<String, Object>> emailLogin(String email, String password) {
+    public JsonResponse<HashMap<String, Object>> mailLogin(String mail, String password) {
         //获取用户信息
-        User user = userMapper.selectUserByEMAIL(email);
+        User user = userMapper.selectUserByMail(mail);
         return login(password, user);
     }
 

@@ -23,11 +23,4 @@ public class BlogController {
     public JsonResponse<BlogTypeConfig> demo(){
         return blogService.demo();
     }
-
-    @RequestMapping("/mail")
-    public JsonResponse<Void> sendMail(@RequestParam String address, @RequestParam String message){
-        return blogService.sendMail(address, message);
-    }
-
-
 }

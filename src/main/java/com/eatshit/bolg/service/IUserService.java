@@ -11,9 +11,9 @@ public interface IUserService {
 
     JsonResponse<HashMap<String, Object>> phoneLogin(String phone, String password);
 
-    JsonResponse<Void> mailRegister(String email, String password, String verifyCode, int invitorId, String userMame);
+    JsonResponse<Void> mailRegister(String mail, String password, String verifyCode, int invitorId, String userMame);
 
-    JsonResponse<HashMap<String, Object>> emailLogin(String email, String password);
+    JsonResponse<HashMap<String, Object>> mailLogin(String mail, String password);
 
-    JsonResponse<Void> forget(String username, String password, String verifyCode, String emailCode);
+    JsonResponse<Void> forget(String username, String password, String verifyCode, String mailCode);
 }
