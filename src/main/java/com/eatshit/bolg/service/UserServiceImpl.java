@@ -1,12 +1,15 @@
 package com.eatshit.bolg.service;
 
 import com.eatshit.bolg.common.JsonResponse;
+import com.eatshit.bolg.entity.Mail;
+import com.eatshit.bolg.entity.Sms;
 import com.eatshit.bolg.entity.User;
 import com.eatshit.bolg.exception.ServiceException;
 import com.eatshit.bolg.mapper.MailMapper;
 import com.eatshit.bolg.mapper.SmsMapper;
 import com.eatshit.bolg.mapper.UserMapper;
 import com.eatshit.bolg.util.StringUtil;
+import com.eatshit.bolg.util.TimeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -31,9 +34,12 @@ public class UserServiceImpl implements IUserService {
     @Override
     public JsonResponse<Void> phoneRegister(
             String phone, String password, String verifyCode, int invitorId, String userName) {
+        Long now = System.currentTimeMillis();
+        Sms sms = smsMapper.selectVerifyCode(phone);
         //检测验证码是否正确
-        if(!"6666".equalsIgnoreCase(verifyCode) && !smsMapper.checkVerifyCode(phone, verifyCode))
+        if (now > sms.getCreateTime() + TimeUtils.MILLISECOND_ONE_DAY || !sms.getMessage().equals(verifyCode)){
             throw ServiceException.VERIFY_CODE_ERROR;
+        }
         //检测手机号是否被注册
         if (userMapper.phoneExist(phone))
             throw ServiceException.PHONE_EXIST;
@@ -52,10 +58,13 @@ public class UserServiceImpl implements IUserService {
     }
 
     private void checkUserName(String username) {
-        if (StringUtils.isNumeric(username))
+        //用户名不能为纯数字，也不能带有@
+        if (StringUtils.isNumeric(username) || username.contains("@")){
             throw ServiceException.USERNAME_ERROR;
-        if (userMapper.userNameExist(username))
+        }
+        if (userMapper.userNameExist(username)){
             throw ServiceException.USERNAME_EXIST;
+        }
     }
 
     @Override
@@ -82,12 +91,14 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public JsonResponse<Void> mailRegister(String mail, String password, String verifyCode, int invitorId, String userName) {
+        Long now = System.currentTimeMillis();
         //检测验证码是否正确
-        String verifyMessage = mailMapper.selectVerifyCode(mail);
+        Mail verifyMail = mailMapper.selectVerifyCode(mail);
+        String verifyMessage = verifyMail.getMessage();
         Integer start = verifyMessage.indexOf("【")+1;
         Integer end = verifyMessage.indexOf("】");
         String tableCode = verifyMessage.substring(start, end);
-        if(!tableCode.equalsIgnoreCase(verifyCode))
+        if(now > verifyMail.getCreateTime() + TimeUtils.MILLISECOND_ONE_DAY || !tableCode.equalsIgnoreCase(verifyCode))
             throw ServiceException.VERIFY_CODE_ERROR;
         //检查邮箱格式
         if (!(mail.contains("@") && mail.contains(".")))

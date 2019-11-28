@@ -61,4 +61,12 @@ public class User {
         this.salt = salt;
         this.registerTime = registerTime;
     }
+
+    public User(Long registerTime, String username, String password, String salt, String phone) {
+        this.phone = phone;
+        this.username = username;
+        this.password = password;
+        this.salt = salt;
+        this.registerTime = registerTime;
+    }
 }

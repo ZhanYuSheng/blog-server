@@ -21,6 +21,6 @@ public interface MailMapper {
     @Update("UPDATE t_mail SET state = #{state}")
     Integer updateState(Mail mail);
 
-    @Select("SELECT message FROM t_mail WHERE address = #{address} AND type = 0 AND state = 1 ORDER BY id DESC LIMIT 0, 1")
-    String selectVerifyCode(String address);
+    @Select("SELECT * FROM t_mail WHERE address = #{address} AND type = 0 AND state = 1 ORDER BY id DESC LIMIT 0, 1")
+    Mail selectVerifyCode(String address);
 }
