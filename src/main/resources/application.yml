@@ -33,5 +33,7 @@ mail:
     code:
       template: 您的验证码为【%s】
 
-aliyun.AccessKey.id: LTAI4FxhgFHyzSSeU3tP9o9q
-aliyun.AccessKey.Secret: Rn4nLhtz1se3LdtURifVIMHMM9yTAe
+aliyun:
+  AccessKey:
+    id: LTAI4FxhgFHyzSSeU3tP9o9q
+    Secret: Rn4nLhtz1se3LdtURifVIMHMM9yTAe
