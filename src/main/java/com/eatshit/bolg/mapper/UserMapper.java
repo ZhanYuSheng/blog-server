@@ -24,8 +24,8 @@ public interface UserMapper {
     @Select("SELECT 1=(SELECT COUNT(*) FROM t_user WHERE mail = #{mail})")
     boolean mailExist(String mail);
 
-    @Select("SELECT * FROM t_user WHERE mail = #{mail}")
-    User selectUserByMail(String mail);
+    @Select("SELECT * FROM t_user WHERE mail = #{address}")
+    User selectUserByMail(String address);
 
     @Select("SELECT * FROM t_user WHERE phone = #{username} OR mail = #{username} OR username = #{username}")
     User selectUser(String username);

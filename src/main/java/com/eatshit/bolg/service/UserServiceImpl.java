@@ -10,6 +10,7 @@ import com.eatshit.bolg.mapper.SmsMapper;
 import com.eatshit.bolg.mapper.UserMapper;
 import com.eatshit.bolg.util.StringUtil;
 import com.eatshit.bolg.util.TimeUtils;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -37,7 +38,7 @@ public class UserServiceImpl implements IUserService {
         Long now = System.currentTimeMillis();
         Sms sms = smsMapper.selectVerifyCode(phone);
         //检测验证码是否正确
-        if (now > sms.getCreateTime() + TimeUtils.MILLISECOND_ONE_DAY || !sms.getMessage().equals(verifyCode)){
+        if (sms == null || now > sms.getCreateTime() + TimeUtils.MILLISECOND_ONE_DAY || !sms.getMessage().equals(verifyCode)){
             throw ServiceException.VERIFY_CODE_ERROR;
         }
         //检测手机号是否被注册
@@ -120,9 +121,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public JsonResponse<HashMap<String, Object>> mailLogin(String mail, String password) {
+    public JsonResponse<HashMap<String, Object>> mailLogin(String address, String password) {
         //获取用户信息
-        User user = userMapper.selectUserByMail(mail);
+        User user = userMapper.selectUserByMail(address);
         return login(password, user);
     }
 

@@ -2,8 +2,12 @@ package com.eatshit.bolg.controller;
 
 import com.eatshit.bolg.common.JsonResponse;
 import com.eatshit.bolg.service.UserServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,6 +15,7 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("/user")
+@Api(tags = "用户模块")
 public class UserController {
     @Autowired
     private UserServiceImpl userService;
@@ -25,12 +30,14 @@ public class UserController {
      * @param userName 用户昵称
      * @return
      */
-    @RequestMapping(value = "/phoneRegister")
+    @RequestMapping(value = "/phoneRegister", method = RequestMethod.POST)
+    @ApiOperation(value = "手机号注册", notes = "")
     public JsonResponse<Void> phoneRegister(
-            @RequestParam String phone, @RequestParam String password,
-            @RequestParam(value = "verify_code") String verifyCode,
-            @RequestParam(value = "invitor_id", required = false, defaultValue = "0") int invitorId,
-            @RequestParam(value = "user_name") String userName){
+            @RequestParam @ApiParam(name="phone",value="手机号",required = true) String phone,
+            @RequestParam @ApiParam(name="password",value="密码(MD5加密)",required = true) String password,
+            @RequestParam(value = "verify_code") @ApiParam(name="verify_code",value="短信验证码",required = true) String verifyCode,
+            @RequestParam(value = "invitor_id", required = false, defaultValue = "0") @ApiParam(name="invitor_id",value="邀请码") int invitorId,
+            @RequestParam(value = "user_name") @ApiParam(name="user_name",value="用户名(昵称)",required = true) String userName){
         return userService.phoneRegister(phone, password, verifyCode, invitorId, userName);
     }
 
@@ -41,8 +48,11 @@ public class UserController {
      * @param password
      * @return
      */
-    @RequestMapping(value = "/phoneLogin")
-    public JsonResponse<HashMap<String, Object>> phoneLogin(@RequestParam String phone, @RequestParam String password){
+    @RequestMapping(value = "/phoneLogin", method = RequestMethod.POST)
+    @ApiOperation(value = "手机号登录")
+    public JsonResponse<HashMap<String, Object>> phoneLogin(
+            @RequestParam @ApiParam(name="phone",value="手机号",required = true) String phone,
+            @RequestParam @ApiParam(name="password",value="密码(MD5加密)",required = true) String password){
         return userService.phoneLogin(phone, password);
     }
 
@@ -56,25 +66,30 @@ public class UserController {
      * @param userName 用户名
      * @return
      */
-    @RequestMapping("/mailRegister")
+    @RequestMapping(value = "/mailRegister", method = RequestMethod.POST)
+    @ApiOperation("邮箱注册")
     public JsonResponse<Void> mailRegister(
-            @RequestParam String address, @RequestParam String password,
-            @RequestParam(value = "verify_code") String verifyCode,
-            @RequestParam(value = "invitor_id", required = false, defaultValue = "0") int invitorId,
-            @RequestParam(value = "user_name") String userName){
+            @RequestParam @ApiParam(name="address",value="邮箱地址",required = true) String address,
+            @RequestParam @ApiParam(name="password",value="密码(MD5加密)",required = true) String password,
+            @RequestParam(value = "verify_code") @ApiParam(name="verify_code",value="短信验证码",required = true) String verifyCode,
+            @RequestParam(value = "invitor_id", required = false, defaultValue = "0") @ApiParam(name="invitor_id",value="邀请码") int invitorId,
+            @RequestParam(value = "user_name") @ApiParam(name="user_name",value="用户名(昵称)",required = true) String userName){
         return userService.mailRegister(address, password, verifyCode, invitorId, userName);
     }
 
     /**
      * 邮箱登录
      *
-     * @param mail 邮箱
+     * @param address 邮箱
      * @param password 密码
      * @return
      */
-    @RequestMapping("/mailLogin")
-    public JsonResponse<HashMap<String, Object>> mailLogin(@RequestParam String mail, @RequestParam String password){
-        return userService.mailLogin(mail, password);
+    @RequestMapping(value = "/mailLogin", method = RequestMethod.POST)
+    @ApiOperation("邮箱登录")
+    public JsonResponse<HashMap<String, Object>> mailLogin(
+            @RequestParam @ApiParam(name="address",value="邮箱地址",required = true) String address,
+            @RequestParam @ApiParam(name="password",value="密码(MD5加密)",required = true) String password){
+        return userService.mailLogin(address, password);
     }
 
     /**

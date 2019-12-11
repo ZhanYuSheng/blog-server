@@ -3,12 +3,12 @@ package com.eatshit.bolg.entity;
 import lombok.Data;
 
 @Data
-public class BlogTypeConfig {
-    //文章ID
+public class BlogTag {
+    //标签ID
     private Integer id;
-    //文章类型
-    private String type;
-    //上级ID
+    //标签名称
+    private String tagName;
+    //上级标签ID
     private Integer higherId;
     //备注
     private String remark;

@@ -1,41 +1,24 @@
 package com.eatshit.bolg.service;
 
 import com.eatshit.bolg.common.JsonResponse;
-import com.eatshit.bolg.entity.BlogTypeConfig;
-import com.eatshit.bolg.exception.ServiceException;
-import com.eatshit.bolg.mapper.BlogMapper;
-import com.eatshit.bolg.component.MailComponent;
+import com.eatshit.bolg.entity.BlogTag;
+import com.eatshit.bolg.mapper.BlogTagMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
 public class BlogServiceImpl implements IBlogService {
     @Autowired
-    private BlogMapper blogMapper;
-    @Autowired
-    private StringRedisTemplate redis;
-    @Autowired
-    private MailComponent emailComponent;
+    private BlogTagMapper blogTagMapper;
+
 
     @Override
-    public JsonResponse<BlogTypeConfig> demo() {
-        //数据库操作
-        BlogTypeConfig blogTypeConfig = blogMapper.demo();
-
-        //异常处理
-        if (blogTypeConfig == null)
-            throw ServiceException.INTERNAL_ERROR;
-
-        //Redis操作
-        redis.opsForValue().set("name", "lida");
-        String result = redis.opsForValue().get("name");
-
-        //日志
-        log.info("result = {}", result);
-
-        return new JsonResponse<>(blogTypeConfig);
+    public JsonResponse<List<BlogTag>> tagList() {
+        List<BlogTag> blogTagList = blogTagMapper.tagList();
+        return new JsonResponse(blogTagList);
     }
 }
